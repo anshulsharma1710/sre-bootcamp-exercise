@@ -4,11 +4,11 @@ const router = express.Router();
 
 // Create a new instance of Pool for PostgreSQL connection
 const pool = new Pool({
-  user: 'student_user',            // Your PostgreSQL username
-  host: 'localhost',               // PostgreSQL host (localhost if running locally)
-  database: 'student_db',          // Your database name
-  password: 'Floodyop@30',      // Your password for the database
-  port: 5432,                      // Default PostgreSQL port
+  user: process.env.DB_USER,            // Your PostgreSQL username
+  host: process.env.DB_HOST,               // PostgreSQL host (localhost if running locally)
+  database: process.env.DB_NAME,          // Your database name
+  password: process.env.DB_PASSWORD,      // Your password for the database
+  port: process.env.DB_PORT,                      // Default PostgreSQL port
 });
 
 // Get all students
