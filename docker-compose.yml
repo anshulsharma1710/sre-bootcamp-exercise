@@ -5,7 +5,7 @@ services:
     container_name: db-container
     environment:
       POSTGRES_USER: student_user
-      POSTGRES_PASSWORD: Floodyop@30
+      POSTGRES_PASSWORD: postgres_password
       POSTGRES_DB: student_db
     ports:
       - "5432:5432"
@@ -26,7 +26,7 @@ services:
       DB_HOST: localhost
       DB_PORT: 5432
       DB_USER: student_user
-      DB_PASSWORD: Floodyop@30
+      DB_PASSWORD: db_password
       DB_NAME: student_db
       NODE_ENV: development
     depends_on:
