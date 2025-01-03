@@ -1,12 +1,42 @@
-version: '3.8'
 
 services:
+  db:
+    image: postgres:15
+    container_name: db-container
+    environment:
+      POSTGRES_USER: student_user
+      POSTGRES_PASSWORD: Floodyop@30
+      POSTGRES_DB: student_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   api:
-    image: rest-api-dockerfile:1.0
     build:
       context: .
+      dockerfile: Dockerfile
+    container_name: rest-api-container
+    environment:
+      DB_HOST: localhost
+      DB_PORT: 5432
+      DB_USER: student_user
+      DB_PASSWORD: Floodyop@30
+      DB_NAME: student_db
+      NODE_ENV: development
+    depends_on:
+      db:
+        condition: service_healthy
     ports:
       - "3000:3000"
-    env_file:
-      - .env
-    container_name: rest-api-container
+    volumes:
+      - .:/app
+    command: ["npm", "start"]
+
+volumes:
+  db_data:
